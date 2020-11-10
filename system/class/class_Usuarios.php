@@ -80,4 +80,8 @@ class Usuarios extends Principal {
     function usuarioLogado(){
         return $_SESSION['usuario']['logado'] == 1;
     }
+    
+    static function logout(){
+        session_destroy();
+    }
 }

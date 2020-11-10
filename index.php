@@ -12,13 +12,24 @@
         </title>
     </head>
     <body>
+        <header >
+            <div class="perfil"><?php 
+                if($us->usuarioLogado()){
+                    echo "<a href='{$us->url}logout.php' title='Sair'>Sair</a>";
+                }else{
+                    echo "<a href='{$us->url}acesso.php' title='Login'>Login</a>";
+                }
+            ?></div>
+        </header>
         <p>
         <?php
         
             $get_area = $us->getArea();
             $file_area = __DIR__ . DS . "system" . DS . $get_area . ".php";
             
-            if(!$us->usuarioLogado()){ ?>
+            if(!$us->usuarioLogado()){
+                echo $us->getAbout();
+                ?>
                 <h2>Faça seu cadastro para adicionar novos chamados</h2>
 
                 <form id="form_login" action="acesso.php" method="post" >
@@ -29,7 +40,7 @@
                     <p><input type="submit" name="entrar" value="Entrar" /></p>
                 </form>
                 <?php  
-                echo "<p>Já possui uma conta? <a href='{$us->url}acesso.php?a=login' >Acessar</a></p>";
+                echo "<p>Já possui uma conta? <a href='{$us->url}acesso.php' >Acessar</a></p>";
             }
             elseif(file_exists($file_area)){
                 include($file_area);

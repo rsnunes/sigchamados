@@ -1,7 +1,6 @@
 <?php include("./system/config.php");
-    $us = new Usuarios();
-  
-  ?>
+    $us = new Usuarios();  
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -15,9 +14,8 @@
     <body>
        
         <h2>Faça o login para acessar o sistema</h2>
-        <?php
-            $acesso = $us->urlGetVal("a");
-            var_dump($_SESSION);
+        <?php          
+           
             if(isset($_POST['logar']) == 1 && !empty($_POST['email']) && !empty($_POST['senha'])){
                 if(!$us->logar($_POST['email'],$_POST['senha'])){                    
                     echo "<p>Email ou senha inválidos!</p>";

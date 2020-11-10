@@ -3,6 +3,7 @@
 error_reporting(E_ALL || E_ERROR);
 
 define('DS',DIRECTORY_SEPARATOR);
+$url = 'http://127.0.0.1/sigchamados/';
 
 //load class
 function loadClass($className) {
