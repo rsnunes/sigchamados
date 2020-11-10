@@ -36,9 +36,9 @@
                 
                 <p><input type="submit" name="entrar" value="Entrar" /></p>
             </form>
-                
             
-            <?php
+                <?php
+                echo "<p>Não possui uma conta? <a href='{$us->url}index.php' >Criar conta</a></p>";
             }
             else{
                 header("Location: {$us->url}");

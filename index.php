@@ -61,6 +61,7 @@
                 include($file_area);
             }
             elseif($us->usuarioLogado() && $_SESSION['usuario']['tipo'] == 1){
+                echo $us->getAbout();
                 echo "<a href='{$url}?area=chamados' title='Meus chamados'>Meus chamados</a>";
             }
             elseif($us->usuarioLogado() && $_SESSION['usuario']['tipo'] == 2){
@@ -68,7 +69,8 @@
                 $ch->lista(1);
             }
             else{
-                echo $us->getAbout();                
+                echo $us->getAbout();   
+                echo '<p>A liberação de seus acessos será feita por um funcionário.</p>';
             }
         ?>            
         </div>
