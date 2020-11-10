@@ -76,7 +76,7 @@ class Chamados extends Principal {
                 $html .= "<tr><td>{$this->bt_alt($this->area,$row['id'])}</td>";
                 $html .= ($_SESSION['usuario']['tipo'] == 2) ? "<td>{$this->bt_del($row['id'], $this->t_chamados)}</td>" : '';
                 $html .= "<td>{$this->status[$row['status']]}</td>";
-                $html .= "<td>{$row['descricao']}</td>";
+                $html .= "<td>".substr($row['descricao'],0,150)."</td>";
                 $html .= "<td>{$row['dtains']}</td>";
                 $html .= "<td>{$row['dtaalt']}</td>";
                 $html .= "</tr>";

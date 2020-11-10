@@ -64,9 +64,8 @@ class Comentarios extends Principal {
         if(count($obj) > 0){            
             $html = "<table name='lista_ajax' border='0' cellpadding='2' cellspacing='2'>";
             $html .= "<tr><th>Comentário</th><th>Adicionado por</th><th>Data</th></tr>";
-            foreach($obj as $row){
-                
-                $html .= "<td>{$row['comentario']}</td>";
+            foreach($obj as $row){                
+                $html .= "<td>".substr($row['comentario'],0,200)."</td>";
                 $html .= "<td>{$row['nome']}</td>";
                 $html .= "<td>{$row['dtains']}</td>";
                 $html .= "</tr>";
