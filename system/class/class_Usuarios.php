@@ -16,15 +16,15 @@ class Usuarios extends Principal {
         echo "<h2 class='form_title'>Cadastro de Usuários</h2>";
         $form = "<form id='f_usuarios' name='f_usuarios' action='{$this->url_system}{$this->area}_xp.php' method='post'>";
         $form .= "<input type='hidden' id='acao' name='acao' value='salvar' />";
-        $_SESSION['usuario']['id'] = $obj['id'];
+        $_SESSION['atualizar']['usuario_id'] = $obj['id'];
         $form .= "<p class='form_raw'><label for='nome'><span>Nome: </span><input type='text' id='nome' name='nome' value='{$obj['nome']}' /></label></p>";
         $form .= "<p class='form_raw'><label for='email'><span>Email: </span><input type='text' id='email' name='email' value='{$obj['email']}' /></label></p>";
         $form .= "<p class='form_raw'><label for='senha'><span>Senha: </span><input type='password' id='senha' name='senha' /></label></p>";
         //tipo usuario
-        if($obj['tipo'] == 2){  
+        if($_SESSION['usuario']['tipo'] == 2){  
             $form .= "<p class='form_raw'><label for='tipo'>Tipo: <select name='tipo' id='tipo'>";
                 foreach($this->tipo as $key => $tipo){
-                    $s = ($obj['tipo'] == $tipo) ? 'selected' : '';
+                    $s = ($obj['tipo'] == $key) ? 'selected' : '';
                     $form .= "<option value='{$key}' {$s} >{$tipo}</option>";
                 }
             $form .= "</select></label></p>";
@@ -55,18 +55,19 @@ class Usuarios extends Principal {
             $html .= "</table>";
         }
         else{
-            $html = "Nenhum registro encontrado!";
+            $html = "<p class='nenhum_reg'>Nenhum registro encontrado!</p>";
         }
         echo $html;
     }
     
     function logar($email, $senha){
-        $sql = "SELECT nome, email, tipo FROM {$this->t_usuarios} WHERE email = :email and senha = :senha limit 1";
+        $sql = "SELECT id, nome, email, tipo FROM {$this->t_usuarios} WHERE email = :email and senha = :senha limit 1";
         $params = array(':email'=>$email, ':senha'=>md5($senha));
         $usuario = $this->listar($sql, $params);
         
         if(count($usuario) == 1){ 
             $_SESSION['usuario']['logado'] = 1;
+            $_SESSION['usuario']['id'] = $usuario[0]['id'];
             $_SESSION['usuario']['nome'] = $usuario[0]['nome'];
             $_SESSION['usuario']['email'] = $usuario[0]['email'];
             $_SESSION['usuario']['tipo'] = $usuario[0]['tipo'];
@@ -85,3 +86,4 @@ class Usuarios extends Principal {
         session_destroy();
     }
 }
+?>

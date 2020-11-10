@@ -10,6 +10,8 @@ class Principal {
         $this->url_js = $this->url . "media/js/";
         
         $this->t_usuarios = 'usuarios';
+        $this->t_chamados = 'chamados';
+        $this->t_comentarios = 'comentarios_chamados';
     }
     
     function getArea(){
@@ -35,8 +37,8 @@ class Principal {
         return $conn->select($query, $params);
     }
     
-    public function getRegistro($id,$table){
-        $sql = "SELECT * FROM {$table} WHERE id = :id";
+    public function getRegistro($id, $table, $campo='*'){
+        $sql = "SELECT {$campo} FROM {$table} WHERE id = :id";
         $obj = $this->listar($sql,array(':id'=>$id));            
         
         return $obj[0];

@@ -15,13 +15,23 @@
         <header >
             <div class="perfil"><?php 
                 if($us->usuarioLogado()){
+                    echo "<span >{$us->tipo[$_SESSION['usuario']['tipo']]}: {$_SESSION['usuario']['nome']}</span>";
                     echo "<a href='{$us->url}logout.php' title='Sair'>Sair</a>";
                 }else{
                     echo "<a href='{$us->url}acesso.php' title='Login'>Login</a>";
                 }
             ?></div>
         </header>
-        <p>
+        <nav>
+            <ul>
+                <?php
+                    echo "<li><a href='{$url}' title='Página inicial'>Página inicial</a></li>";
+                    echo "<li><a href='{$url}?area=chamados' title='Chamados'>Chamados</a></li>";
+                    echo "<li><a href='{$url}?area=usuarios' title='Usuários'>Usuários</a></li>";
+                ?>
+            </ul>
+        </nav>
+        <div id="content">
         <?php
         
             $get_area = $us->getArea();
@@ -45,11 +55,18 @@
             elseif(file_exists($file_area)){
                 include($file_area);
             }
+            elseif($us->usuarioLogado() && $_SESSION['usuario']['tipo'] == 1){
+                echo "<a href='{$url}?area=chamados' title='Meus chamados'>Meus chamados</a>";
+            }
+            elseif($us->usuarioLogado() && $_SESSION['usuario']['tipo'] == 2){
+                $ch = new Chamados();
+                $ch->lista(1);
+            }
             else{
                 echo $us->getAbout();
             }
         ?>            
-        </p>
+        </div>
     </body>
 </html>
 

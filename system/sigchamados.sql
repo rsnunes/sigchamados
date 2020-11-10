@@ -24,9 +24,10 @@ CREATE TABLE IF NOT EXISTS `chamados` (
   `solucao` text,
   `status` char(1) NOT NULL DEFAULT '0',
   `dtains` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `dtaalt` timestamp NULL DEFAULT NULL,
+  `dtaalt` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `usuarios_id` (`usuarios_id`)
+  KEY `usuarios_id` (`usuarios_id`),
+  CONSTRAINT `FK_chamados_usuarios` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela sigchamados.chamados: ~0 rows (aproximadamente)

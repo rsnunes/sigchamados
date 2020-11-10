@@ -12,12 +12,13 @@
             $record['tipo'] = $_POST['tipo'];
         }
         
-        if(empty($_SESSION['usuario']['id'])){
+        if(empty($_SESSION['atualizar']['usuario_id'])){
             $obj->inserir($record, $obj->t_usuarios);
             $url = $obj->url . "?area=" . $obj->area . "&acao=formulario&id=" . $obj->getLastId();
         }
         else{
-            $obj->atualizar($record, $obj->t_usuarios, $_SESSION['usuario']['id']);
+            $obj->atualizar($record, $obj->t_usuarios, $_SESSION['atualizar']['usuario_id']);
+            $_SESSION['atualizar']['usuario_id'] = 0;
             $url = $_SERVER['HTTP_REFERER'];
         }
         
