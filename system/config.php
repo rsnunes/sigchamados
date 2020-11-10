@@ -1,6 +1,6 @@
 <?php
 
-//error_reporting(E_ALL || E_ERROR);
+error_reporting(E_ALL || E_ERROR);
 
 define('DS',DIRECTORY_SEPARATOR);
 

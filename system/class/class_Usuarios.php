@@ -44,7 +44,7 @@ class Usuarios extends Principal {
         $sql = "SELECT id, nome, email, tipo FROM {$this->t_usuarios} WHERE 1=1 ORDER BY id DESC";
         
         $obj = $this->listar($sql);
-        echo $sql;
+        
         if(count($obj) > 0){
             $tipo = array('0'=>'Cliente','1'=>'Funcionário');
             $html = "<table name='lista_regs' border='0' cellpadding='2' cellspacing='2'>";

@@ -96,6 +96,21 @@ class Principal {
         $html .= "</form>";
         return $html;
     }
+    
+    function bt_acao($titulo = 'Voltar', $novo = 0){
+        $area = $this->getArea();
+        $acao = $this->urlGetVal('acao');
+        $id = $this->urlGetVal('id');
+        if($novo == 1){
+            $url = "?area={$area}&acao=formulario";
+        }
+        elseif($id || $acao){
+            $url = "?area={$area}";            
+        }
+        
+        $html = "<a href='{$this->url}{$url}' title='{$titulo}' class='bt_acao'>{$titulo}</a>";
+        return $html;
+    }
 }
 
 ?>
