@@ -40,6 +40,7 @@ class Chamados extends Principal {
         
         echo $form;
         if($obj['id']){
+            echo "<div id='lista_comentarios' class='lista_ajax'></div>";
             $co = new Comentarios();
             $co->formularioAjax($obj['id']);
         }

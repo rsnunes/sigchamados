@@ -9,6 +9,7 @@ class Comentarios extends Principal {
     public function formularioAjax($chamados_id){
         $js = "<script type='text/javascript'>
             $(document).ready(function(){
+                listaComentarios('{$chamados_id}');
                 $('#adicionarComentario').click(function(){adicionarComentario();});              
             });
             function adicionarComentario(){
@@ -27,6 +28,11 @@ class Comentarios extends Principal {
                         alert('Falha ao salvar comentário!');
                 });
             }
+            function listaComentarios(chamados_id){                
+                $.post('{$this->url_system}ajax.php',{'f':'listaComentarios','chamados_id':chamados_id},function(returned_data){
+                    $('#lista_comentarios').empty().html(returned_data);                    
+                });
+            }
             </script>";
         $form = "<h2 class='form_subtitle'>Adicionar comentário</h2>";
         $form .= "<form id='f_comentarios' name='f_comentarios' action='{$this->url_system}ajax.php' method='post'>";
@@ -34,7 +40,7 @@ class Comentarios extends Principal {
         $form .= "<input type='hidden' id='chamados_id' name='chamados_id' value='{$chamados_id}' />";
         $form .= "<p class='form_raw_ajax'><label for='comentario'><span>Comentário: </span><textarea id='comentario' name='comentario' ></textarea></label></p>";
         $form .= "<input type='button' id='adicionarComentario' value='Adicionar' />";
-        $form .= "</form>";
+        $form .= "</form>";        
         
         echo $form;
         echo $js;
@@ -49,21 +55,20 @@ class Comentarios extends Principal {
         }
     }
     
-    public function lista(){
-        echo "<h2 class='list_title'>Lista de Usuários</h2>";
-        $sql = "SELECT id, nome, email, tipo FROM {$this->t_usuarios} WHERE 1=1 ORDER BY id DESC";
-        
-        $obj = $this->listar($sql);
+    public function listaAjax($chamados_id){
+        echo "<h2 class='list_title'>Comentários deste chamado</h2>";
+        $sql = "SELECT a.comentario, a.dtains, b.nome FROM {$this->t_comentarios} a, {$this->t_usuarios} b WHERE a.chamados_id = :chamados_id and a.usuarios_id = b.id ORDER BY a.id DESC";
+        $params[':chamados_id'] = $chamados_id;
+        $obj = $this->listar($sql, $params);
         
         if(count($obj) > 0){            
-            $html = "<table name='lista_regs' border='0' cellpadding='2' cellspacing='2'>";
-            $html .= "<tr><th>Alt</th><th>Del</th><th>Nome</th><th>Email</th><th>Tipo</th></tr>";
+            $html = "<table name='lista_ajax' border='0' cellpadding='2' cellspacing='2'>";
+            $html .= "<tr><th>Comentário</th><th>Adicionado por</th><th>Data</th></tr>";
             foreach($obj as $row){
-                $html .= "<tr><td>{$this->bt_alt($this->area,$row['id'])}</td>";
-                $html .= "<td>{$this->bt_del($row['id'], $this->t_usuarios)}</td>";
+                
+                $html .= "<td>{$row['comentario']}</td>";
                 $html .= "<td>{$row['nome']}</td>";
-                $html .= "<td>{$row['email']}</td>";
-                $html .= "<td>{$this->tipo[$row['tipo']]}</td>";
+                $html .= "<td>{$row['dtains']}</td>";
                 $html .= "</tr>";
             }
             $html .= "</table>";
