@@ -8,6 +8,10 @@
         if(isset($_POST['senha'])){
             $record['senha'] = md5($_POST['senha']);
         }
+        if(isset($_POST['tipo'])){
+            $record['tipo'] = $_POST['tipo'];
+        }
+        
         if(empty($_SESSION['usuario']['id'])){
             $obj->inserir($record, $obj->t_usuarios);
             $url = $obj->url . "?area=" . $obj->area . "&acao=formulario&id=" . $obj->getLastId();

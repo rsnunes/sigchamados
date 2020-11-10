@@ -12,7 +12,16 @@ class Principal {
         $this->t_usuarios = 'usuarios';
     }
     
-    public function getLastId(){
+    function getArea(){
+        return isset($_GET['area']) ? $_GET['area'] : 'home';
+    }
+    
+    function urlGetVal($field){
+        return isset($_GET[$field]) ? $_GET[$field] : '';
+    }
+    
+    
+    function getLastId(){
         return $_SESSION['last_id'];
     }
     
@@ -24,6 +33,13 @@ class Principal {
     public function listar($query, $params = array()){
         $conn = new Sql();
         return $conn->select($query, $params);
+    }
+    
+    public function getRegistro($id,$table){
+        $sql = "SELECT * FROM {$table} WHERE id = :id";
+        $obj = $this->listar($sql,array(':id'=>$id));            
+        
+        return $obj[0];
     }
     
     public function inserir($record, $table){
@@ -72,10 +88,10 @@ class Principal {
     
     function bt_del($id,$table){
         $f = "f_del_{$id}";
-        $html = "<form id='{$f}' action='{$this->url_system}{$this->area}_xp.php method='post' >";
-        $html .= "<input type='hidden' id='acao' value='deletar' />";
-        $html .= "<input type='hidden' id='id' value='{$id}' />";
-        $html .= "<input type='hidden' id='table' value='{$table}' />";
+        $html = "<form id='{$f}' action='{$this->url_system}{$this->area}_xp.php' method='post' >";
+        $html .= "<input type='hidden' name='acao' value='deletar' />";
+        $html .= "<input type='hidden' name='id' value='{$id}' />";
+        $html .= "<input type='hidden' name='table' value='{$table}' />";
         $html .= "<input type='button' id='excluir{$id}' name='excluir{$id}' title='Deletar' value='&nbsp;' onclick=\"conf_del('{$f}')\" class='bt_del'>";
         $html .= "</form>";
         return $html;
