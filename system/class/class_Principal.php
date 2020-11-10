@@ -114,14 +114,16 @@ class Principal {
         $html = "<a href='{$this->url}{$url}' title='{$titulo}' class='bt_acao'>{$titulo}</a>";
         return $html;
     }
-    
+    function getTitle(){
+        return "<h1>SIG Chamados</h1><h3>Sistema gerenciador de chamados</h3>";        
+    }
     function getAbout(){
-        $html = "<h1>SIG Chamados</h1><h3>Sistema gerenciador de chamados</h3>";
-        $html .= "<p>Neste sistema você poderá:";
-        $html .= "<ol><li>Iserir novos chamados</li>";
+        $html = "<p>Neste sistema você poderá:";
+        $html .= "<ol><li>Inserir novos chamados</li>";
         $html .= "<li>Consultar a situação dos seus chamados</li>";
         $html .= "<li>Verificar a solução encontrada para o seu chamado</li>";
-        $html .= "<li>Adicionar comentários aos seus chamados</li></ol></p>";
+        $html .= "<li>Adicionar comentários aos seus chamados</li>";
+        $html .= "<li>Atualizar seu <a href='{$this->url}?area=usuarios&acao=formulario&id={$_SESSION['usuario']['id']}'>perfil</a></li></ol></p>";
         return $html;
     }
     

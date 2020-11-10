@@ -26,7 +26,7 @@
                 header("Location: {$url}");
             }
             
-            if(!$us->usuarioLogado()){
+            if(!usuarioLogado()){
             ?>
             <form id="form_login" action="acesso.php" method="post" >
                 <input type="hidden" name="logar" id="logar" value="1" />

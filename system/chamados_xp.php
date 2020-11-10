@@ -10,7 +10,7 @@
             $obj->inserir($record, $obj->t_chamados);
             $url = $obj->url . "?area=" . $obj->area . "&acao=formulario&id=" . $obj->getLastId();
         }
-        elseif($_SESSION['usuario']['tipo'] == 2){
+        elseif(Usuarios::getTipo()){
             $record['solucao'] = isset($_POST['solucao']) ? $_POST['solucao'] : '';
             $record['status'] = isset($_POST['status']) ? $_POST['status'] : 0;
             

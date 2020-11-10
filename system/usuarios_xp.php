@@ -8,7 +8,7 @@
         if(isset($_POST['senha'])){
             $record['senha'] = md5($_POST['senha']);
         }
-        if(isset($_POST['tipo']) && $_SESSION['usuario']['tipo'] == 2){
+        if(isset($_POST['tipo']) && $obj->getTipo() == 2){
             $record['tipo'] = $_POST['tipo'];
         }
         
@@ -16,7 +16,7 @@
             $obj->inserir($record, $obj->t_usuarios);
             $url = $obj->url . "?area=" . $obj->area . "&acao=formulario&id=" . $obj->getLastId();
         }
-        elseif($_SESSION['usuario']['tipo'] == 2 || $_SESSION['usuario']['id'] == $_SESSION['atualizar']['usuario_id']){
+        elseif($obj->getTipo() == 2 || $_SESSION['usuario']['id'] == $_SESSION['atualizar']['usuario_id']){
             $obj->atualizar($record, $obj->t_usuarios, $_SESSION['atualizar']['usuario_id']);
             $_SESSION['atualizar']['usuario_id'] = 0;
             $url = $_SERVER['HTTP_REFERER'];
@@ -25,7 +25,7 @@
         header("Location: {$url}");
     }
     
-    if($_POST['acao'] == 'deletar' && $_SESSION['usuario']['tipo'] == 2){
+    if($_POST['acao'] == 'deletar' && $obj->getTipo() == 2){
         $obj->deletar($_POST['id'], $obj->t_usuarios);
         header("Location: {$_SERVER['HTTP_REFERER']}");
     }

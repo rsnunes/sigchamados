@@ -9,14 +9,22 @@ class Chamados extends Principal {
     
     public function formulario(){
         
-        if($_SESSION['usuario']['tipo'] == '0'){
+        $_SESSION['atualizar']['chamado_id'] = 0;
+       
+        if(Usuarios::getTipo() == '0'){
            $this->acessoNegado();
         }
-        $_SESSION['atualizar']['chamado_id'] = 0;
-        $id = $this->urlGetVal('id');
+        elseif(Usuarios::getTipo() == 1){
+            $where = " and usuarios_id = :usuarios_id";
+            $params[':usuarios_id'] = getUserId();
+        }
         $obj = array();
+        $id = $this->urlGetVal('id');
         if((int)$id > 0){
-            $obj = $this->getRegistro($id,$this->t_chamados);            
+            $params[':id'] = $id;
+            $sql = "SELECT * FROM {$this->t_chamados} WHERE id = :id {$where} limit 1";
+            $o = $this->listar($sql, $params); 
+            $obj = $o[0];
         }
         
         echo "<h2 class='form_title'>Cadastro de Chamados</h2>";
@@ -32,7 +40,7 @@ class Chamados extends Principal {
             
         }
         
-        if($_SESSION['usuario']['tipo'] == 2 && $obj['id'] && $obj['status'] != 1){  
+        if(Usuarios::getTipo() == 2 && $obj['id'] && $obj['status'] != 1){  
             $_SESSION['atualizar']['chamado_id'] = $obj['id'];
             $form .= "<p class='form_raw'><label for='solucao'><span>Solução: </span><textarea id='solucao' name='solucao' >{$obj['solucao']}</textarea></label></p>";
             $form .= "<p class='form_raw'><label for='tipo'>Status: <select name='status' id='status'>";
@@ -43,10 +51,11 @@ class Chamados extends Principal {
             $form .= "</select></label></p>";
         }
         elseif($obj['id']){
-            $form .= "<p class='form_raw'><span>Solução: </span>{$obj['solucao']}</p>";
+            $solucao = empty($obj['solucao']) ? '--' : $obj['solucao'];
+            $form .= "<p class='form_raw'><span>Solução: </span>{$solucao}</p>";
             $form .= "<p class='form_raw'><span>Status: </span>{$this->status[$obj['status']]}</p>";
         }
-        $form .= (!$obj['id'] || ($obj['id'] && $obj['status'] != 1 && $_SESSION['usuario']['tipo'] ==2)) ? "<input type='submit' value='Salvar' />" : '';
+        $form .= (!$obj['id'] || ($obj['id'] && $obj['status'] != 1 && Usuarios::getTipo() ==2)) ? "<input type='submit' value='Salvar' />" : '';
         $form .= "</form>";
         
         echo $form;
@@ -59,12 +68,12 @@ class Chamados extends Principal {
     }
     
     public function lista($inicial=0){
-        if($_SESSION['usuario']['tipo'] == '0'){
+        if(Usuarios::getTipo() == '0'){
            $this->acessoNegado();
         }
         
         $title = $link = '';
-        if($_SESSION['usuario']['tipo'] != 2){
+        if(Usuarios::getTipo() != 2){
             $where = ' a.usuarios_id = :usuarios_id';
             $params[':usuarios_id'] = $_SESSION['usuario']['id'];
         }
@@ -103,9 +112,6 @@ class Chamados extends Principal {
         }
         echo $html;
     }
-    
-    
-    
     
 }
 

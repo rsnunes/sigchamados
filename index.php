@@ -15,15 +15,15 @@
     <body>
         <header >
             <div class="perfil"><?php 
-                if($us->usuarioLogado()){
-                    echo "<span >{$us->tipo[$_SESSION['usuario']['tipo']]}: <a href='{$us->url}?area=usuarios&acao=formulario&id={$_SESSION['usuario']['id']}' >{$_SESSION['usuario']['nome']}</a></span>";
+                if(usuarioLogado()){
+                    echo "<span >{$us->tipo[$us->getTipo()]}: <a href='{$us->url}?area=usuarios&acao=formulario&id={$_SESSION['usuario']['id']}' >{$_SESSION['usuario']['nome']}</a></span>";
                     echo "<a href='{$us->url}logout.php' title='Sair'>Sair</a>";
                 }else{
                     echo "<a href='{$us->url}acesso.php' title='Login'>Login</a>";
                 }
             ?></div>
         </header>
-        <?php if($us->usuarioLogado() && $_SESSION['usuario']['tipo'] == 2){ 
+        <?php if(usuarioLogado() && $us->getTipo() == 2){ 
             echo "<nav>";
                 echo "<ul>";                
                     echo "<li><a href='{$url}' title='Página inicial'>Página inicial</a></li>";
@@ -38,10 +38,10 @@
         
             $get_area = $us->getArea();
             $file_area = __DIR__ . DS . "system" . DS . $get_area . ".php";
-            
+            echo $us->getTitle();
             echo $us->getMsg();
             
-            if(!$us->usuarioLogado()){
+            if(!usuarioLogado()){
                 echo $us->getAbout();
                 ?>
                 <h2>Faça seu cadastro para adicionar novos chamados</h2>
@@ -60,11 +60,11 @@
             elseif(file_exists($file_area)){
                 include($file_area);
             }
-            elseif($us->usuarioLogado() && $_SESSION['usuario']['tipo'] == 1){
+            elseif(usuarioLogado() && $us->getTipo() == 1){
                 echo $us->getAbout();
                 echo "<a href='{$url}?area=chamados' title='Meus chamados'>Meus chamados</a>";
             }
-            elseif($us->usuarioLogado() && $_SESSION['usuario']['tipo'] == 2){
+            elseif(usuarioLogado() && $us->getTipo() == 2){
                 $ch = new Chamados();
                 $ch->lista(1);
             }
@@ -74,6 +74,9 @@
             }
         ?>            
         </div>
+        <footer >
+            
+        </footer>
     </body>
 </html>
 

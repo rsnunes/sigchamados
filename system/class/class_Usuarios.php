@@ -7,8 +7,8 @@ class Usuarios extends Principal {
         $this->tipo = array('0'=>'Usuário','1'=>'Cliente','2'=>'Funcionário');
     }
     
-    public function formulario(){        
-        $id = ($_SESSION['usuario']['tipo'] != '2') ? $_SESSION['usuario']['id'] : $this->urlGetVal('id');
+    public function formulario(){
+        $id = ($this->getTipo() != '2') ? $_SESSION['usuario']['id'] : $this->urlGetVal('id');
         $obj = array();
         if((int)$id > 0){
             $obj = $this->getRegistro($id,$this->t_usuarios);            
@@ -21,7 +21,7 @@ class Usuarios extends Principal {
         $form .= "<p class='form_raw'><label for='email'><span>Email: </span><input type='text' id='email' name='email' value='{$obj['email']}' /></label></p>";
         $form .= "<p class='form_raw'><label for='senha'><span>Senha: </span><input type='password' id='senha' name='senha' /></label></p>";
         
-        if($_SESSION['usuario']['tipo'] == 2){  
+        if($this->getTipo() == 2){  
             $form .= "<p class='form_raw'><label for='tipo'>Tipo: <select name='tipo' id='tipo'>";
                 foreach($this->tipo as $key => $tipo){
                     $s = ($obj['tipo'] == $key) ? 'selected' : '';
@@ -36,7 +36,7 @@ class Usuarios extends Principal {
     }
     
     public function lista(){
-        if($_SESSION['usuario']['tipo'] != '2'){
+        if($this->getTipo() != '2'){
            $where = " id = :id";
            $params[':id'] = $_SESSION['usuario']['id'];
            $title = "Meu cadastro";
@@ -56,7 +56,7 @@ class Usuarios extends Principal {
             $html .= "<tr><th>Alt</th>{$bt_del}<th>Nome</th><th>Email</th><th>Tipo</th></tr>";
             foreach($obj as $row){
                 $html .= "<tr><td>{$this->bt_alt($this->area,$row['id'])}</td>";
-                $html .= ($_SESSION['usuario']['tipo'] == 2) ? "<td>{$this->bt_del($row['id'], $this->t_usuarios)}</td>" : '';
+                $html .= ($this->getTipo() == 2) ? "<td>{$this->bt_del($row['id'], $this->t_usuarios)}</td>" : '';
                 $html .= "<td>{$row['nome']}</td>";
                 $html .= "<td>{$row['email']}</td>";
                 $html .= "<td>{$this->tipo[$row['tipo']]}</td>";
@@ -101,10 +101,14 @@ class Usuarios extends Principal {
         $_SESSION['usuario']['tipo'] = 0;
     }
             
-    function usuarioLogado(){
-        return $_SESSION['usuario']['logado'] == 1;
-    }
     
+    static function getTipo(){
+        $us = new Usuarios;
+        $tipo = $us->getRegistro($_SESSION['usuario']['id'], $us->t_usuarios, 'tipo');
+        return $tipo['tipo'];
+    }
+
+
     static function logout(){
         session_destroy();
     }
