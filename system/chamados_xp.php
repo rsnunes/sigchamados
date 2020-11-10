@@ -4,7 +4,7 @@
     
     if($_POST['acao'] == 'salvar'){
                
-        if(empty($_SESSION['atualizar']['chamado_id'])){
+        if(!$_SESSION['atualizar']['chamado_id'] > 0){
             $record['usuarios_id'] = $_SESSION['usuario']['id'];
             $record['descricao'] = $_POST['descricao'];
             $obj->inserir($record, $obj->t_chamados);
@@ -17,7 +17,7 @@
             $obj->atualizar($record, $obj->t_chamados, $_SESSION['atualizar']['chamado_id']);
             $_SESSION['atualizar']['chamado_id'] = 0;
             $url = $_SERVER['HTTP_REFERER'];
-        }
+        }        
         
         header("Location: {$url}");
     }

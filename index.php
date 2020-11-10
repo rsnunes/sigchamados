@@ -16,7 +16,7 @@
         <header >
             <div class="perfil"><?php 
                 if($us->usuarioLogado()){
-                    echo "<span >{$us->tipo[$_SESSION['usuario']['tipo']]}: {$_SESSION['usuario']['nome']}</span>";
+                    echo "<span >{$us->tipo[$_SESSION['usuario']['tipo']]}: <a href='{$us->url}?area=usuarios&acao=formulario&id={$_SESSION['usuario']['id']}' >{$_SESSION['usuario']['nome']}</a></span>";
                     echo "<a href='{$us->url}logout.php' title='Sair'>Sair</a>";
                 }else{
                     echo "<a href='{$us->url}acesso.php' title='Login'>Login</a>";

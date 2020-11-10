@@ -7,9 +7,8 @@ class Usuarios extends Principal {
         $this->tipo = array('0'=>'Usuário','1'=>'Cliente','2'=>'Funcionário');
     }
     
-    public function formulario(){
-        
-        $id = ($_SESSION['usuario']['tipo'] != '1') ? $_SESSION['usuario']['id'] : $this->urlGetVal('id');
+    public function formulario(){        
+        $id = ($_SESSION['usuario']['tipo'] != '2') ? $_SESSION['usuario']['id'] : $this->urlGetVal('id');
         $obj = array();
         if((int)$id > 0){
             $obj = $this->getRegistro($id,$this->t_usuarios);            
@@ -21,7 +20,7 @@ class Usuarios extends Principal {
         $form .= "<p class='form_raw'><label for='nome'><span>Nome: </span><input type='text' id='nome' name='nome' value='{$obj['nome']}' /></label></p>";
         $form .= "<p class='form_raw'><label for='email'><span>Email: </span><input type='text' id='email' name='email' value='{$obj['email']}' /></label></p>";
         $form .= "<p class='form_raw'><label for='senha'><span>Senha: </span><input type='password' id='senha' name='senha' /></label></p>";
-        //tipo usuario
+        
         if($_SESSION['usuario']['tipo'] == 2){  
             $form .= "<p class='form_raw'><label for='tipo'>Tipo: <select name='tipo' id='tipo'>";
                 foreach($this->tipo as $key => $tipo){

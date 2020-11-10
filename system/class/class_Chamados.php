@@ -4,13 +4,15 @@ class Chamados extends Principal {
     function __construct(){
         parent::__construct();
         $this->area = 'chamados';
-        $this->status = array('0'=>'Não solucionado','1'=>'Solucionado');
+        $this->status = array('0'=>'Não solucionado','1'=>'Solucionado','2'=>'Em análise');
     }
     
     public function formulario(){
+        
         if($_SESSION['usuario']['tipo'] == '0'){
            $this->acessoNegado();
         }
+        $_SESSION['atualizar']['chamado_id'] = 0;
         $id = $this->urlGetVal('id');
         $obj = array();
         if((int)$id > 0){
@@ -19,8 +21,8 @@ class Chamados extends Principal {
         
         echo "<h2 class='form_title'>Cadastro de Chamados</h2>";
         $form = "<form id='f_chamados' name='f_chamados' action='{$this->url_system}{$this->area}_xp.php' method='post'>";
+        $form .= "<input type='hidden' id='acao' name='acao' value='salvar' />";    
         if(empty($obj['id'])){
-            $form .= "<input type='hidden' id='acao' name='acao' value='salvar' />";    
             $form .= "<p class='form_raw'><label for='descricao'><span>Descrição: </span><textarea id='descricao' name='descricao' >{$obj['descricao']}</textarea></label></p>";
         }
         else{
@@ -30,7 +32,7 @@ class Chamados extends Principal {
             
         }
         
-        if($_SESSION['usuario']['tipo'] == 2 && $obj['id']){  
+        if($_SESSION['usuario']['tipo'] == 2 && $obj['id'] && $obj['status'] != 1){  
             $_SESSION['atualizar']['chamado_id'] = $obj['id'];
             $form .= "<p class='form_raw'><label for='solucao'><span>Solução: </span><textarea id='solucao' name='solucao' >{$obj['solucao']}</textarea></label></p>";
             $form .= "<p class='form_raw'><label for='tipo'>Status: <select name='status' id='status'>";
@@ -44,10 +46,11 @@ class Chamados extends Principal {
             $form .= "<p class='form_raw'><span>Solução: </span>{$obj['solucao']}</p>";
             $form .= "<p class='form_raw'><span>Status: </span>{$this->status[$obj['status']]}</p>";
         }
-        $form .= (!$obj['id'] || ($obj['id'] && empty($obj['solucao']) && $_SESSION['usuario']['tipo'] ==2)) ? "<input type='submit' value='Salvar' />" : '';
+        $form .= (!$obj['id'] || ($obj['id'] && $obj['status'] != 1 && $_SESSION['usuario']['tipo'] ==2)) ? "<input type='submit' value='Salvar' />" : '';
         $form .= "</form>";
         
         echo $form;
+        
         if($obj['id']){
             echo "<div id='lista_comentarios' class='lista_ajax'></div>";
             $co = new Comentarios();
