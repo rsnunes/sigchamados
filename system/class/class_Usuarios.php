@@ -4,6 +4,7 @@ class Usuarios extends Principal {
     function __construct(){
         parent::__construct();
         $this->area = 'usuarios';
+        $this->tipo = array('0'=>'Usuário','1'=>'Cliente','2'=>'Funcionário');
     }
     
     public function formulario(){
@@ -20,17 +21,12 @@ class Usuarios extends Principal {
         $form .= "<p class='form_raw'><label for='email'><span>Email: </span><input type='text' id='email' name='email' value='{$obj['email']}' /></label></p>";
         $form .= "<p class='form_raw'><label for='senha'><span>Senha: </span><input type='password' id='senha' name='senha' /></label></p>";
         //tipo usuario
-        if($obj['tipo'] == 1){  
-            $s0 = '';
-            $s1 = '';
+        if($obj['tipo'] == 2){  
             $form .= "<p class='form_raw'><label for='tipo'>Tipo: <select name='tipo' id='tipo'>";
-                if($obj['tipo'] == 1){
-                    $s1 = 'selected';
-                }else{
-                    $s0 = 'seleted';
+                foreach($this->tipo as $key => $tipo){
+                    $s = ($obj['tipo'] == $tipo) ? 'selected' : '';
+                    $form .= "<option value='{$key}' {$s} >{$tipo}</option>";
                 }
-                $form .= "<option value='0' {$s0} >Cliente</option>";
-                $form .= "<option value='1' {$s1} >Funcionário</option>";
             $form .= "</select></label></p>";
         }
         $form .= "<input type='submit' value='Salvar' />";
@@ -45,8 +41,7 @@ class Usuarios extends Principal {
         
         $obj = $this->listar($sql);
         
-        if(count($obj) > 0){
-            $tipo = array('0'=>'Cliente','1'=>'Funcionário');
+        if(count($obj) > 0){            
             $html = "<table name='lista_regs' border='0' cellpadding='2' cellspacing='2'>";
             $html .= "<tr><th>Alt</th><th>Del</th><th>Nome</th><th>Email</th><th>Tipo</th></tr>";
             foreach($obj as $row){
@@ -54,7 +49,7 @@ class Usuarios extends Principal {
                 $html .= "<td>{$this->bt_del($row['id'], $this->t_usuarios)}</td>";
                 $html .= "<td>{$row['nome']}</td>";
                 $html .= "<td>{$row['email']}</td>";
-                $html .= "<td>{$tipo[$row['tipo']]}</td>";
+                $html .= "<td>{$this->tipo[$row['tipo']]}</td>";
                 $html .= "</tr>";
             }
             $html .= "</table>";
@@ -63,5 +58,26 @@ class Usuarios extends Principal {
             $html = "Nenhum registro encontrado!";
         }
         echo $html;
+    }
+    
+    function logar($email, $senha){
+        $sql = "SELECT nome, email, tipo FROM {$this->t_usuarios} WHERE email = :email and senha = :senha limit 1";
+        $params = array(':email'=>$email, ':senha'=>md5($senha));
+        $usuario = $this->listar($sql, $params);
+        
+        if(count($usuario) == 1){ 
+            $_SESSION['usuario']['logado'] = 1;
+            $_SESSION['usuario']['nome'] = $usuario[0]['nome'];
+            $_SESSION['usuario']['email'] = $usuario[0]['email'];
+            $_SESSION['usuario']['tipo'] = $usuario[0]['tipo'];
+            header("Location: {$this->url}");
+        }
+        else{
+            return false;
+        }
+    }
+    
+    function usuarioLogado(){
+        return $_SESSION['usuario']['logado'] == 1;
     }
 }
