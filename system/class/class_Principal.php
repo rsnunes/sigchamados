@@ -111,6 +111,15 @@ class Principal {
         $html = "<a href='{$this->url}{$url}' title='{$titulo}' class='bt_acao'>{$titulo}</a>";
         return $html;
     }
+    
+    function getAbout(){
+        $html = "<h1>SIG Chamados</h1><h3>Sistema gerenciador de chamados</h3>";
+        $html .= "<p>Neste sistema você poderá:";
+        $html .= "<ol><li>Iserir novos chamados</li>";
+        $html .= "<li>Consultar a situação dos seus chamados</li>";
+        $html .= "<li>Adicionar comentários aos seus chamados</li></ol></p>";
+        return $html;
+    }
 }
 
 ?>

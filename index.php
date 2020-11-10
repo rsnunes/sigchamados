@@ -20,7 +20,7 @@
                 include($file_area);
             }
             else{
-                echo 'home';
+                echo $us->getAbout();
             }
         ?>            
         </p>
