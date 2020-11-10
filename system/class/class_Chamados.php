@@ -39,6 +39,10 @@ class Chamados extends Principal {
         $form .= "</form>";
         
         echo $form;
+        if($obj['id']){
+            $co = new Comentarios();
+            $co->formularioAjax($obj['id']);
+        }
     }
     
     public function lista($inicial=0){
@@ -62,12 +66,14 @@ class Chamados extends Principal {
         
         $obj = $this->listar($sql, $params);
         
-        if(count($obj) > 0){            
+        if(count($obj) > 0){          
+            $del = ($_SESSION['usuario']['tipo'] == 2) ? "<th>Del</th>" : '';
+            
             $html .= "<table name='lista_regs' border='0' cellpadding='2' cellspacing='2'>";
-            $html .= "<tr><th>Alt</th><th>Del</th><th>Status</th><th>Descrição</th><th>Criado em</th><th>Modificado em</th></tr>";
+            $html .= "<tr><th>Alt</th>{$del}<th>Status</th><th>Descrição</th><th>Criado em</th><th>Modificado em</th></tr>";
             foreach($obj as $row){
                 $html .= "<tr><td>{$this->bt_alt($this->area,$row['id'])}</td>";
-                $html .= "<td>{$this->bt_del($row['id'], $this->t_chamados)}</td>";
+                $html .= ($_SESSION['usuario']['tipo'] == 2) ? "<td>{$this->bt_del($row['id'], $this->t_chamados)}</td>" : '';
                 $html .= "<td>{$this->status[$row['status']]}</td>";
                 $html .= "<td>{$row['descricao']}</td>";
                 $html .= "<td>{$row['dtains']}</td>";

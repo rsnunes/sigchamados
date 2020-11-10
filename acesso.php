@@ -15,12 +15,17 @@
        
         <h2>Faça o login para acessar o sistema</h2>
         <?php          
-           
-            if(isset($_POST['logar']) == 1 && !empty($_POST['email']) && !empty($_POST['senha'])){
+        
+            if($_POST['logar'] == '1' && !empty($_POST['email']) && !empty($_POST['senha'])){
                 if(!$us->logar($_POST['email'],$_POST['senha'])){                    
                     echo "<p>Email ou senha inválidos!</p>";
                 }
+            }            
+            elseif($_POST['cadastrar'] == '1' && !empty($_POST['nome']) && !empty($_POST['email']) && !empty($_POST['senha'])){
+                $us->cadastrarUsuario($_POST['nome'], $_POST['email'], $_POST['senha']);                
+                header("Location: {$url}");
             }
+            
             if(!$us->usuarioLogado()){
             ?>
             <form id="form_login" action="acesso.php" method="post" >

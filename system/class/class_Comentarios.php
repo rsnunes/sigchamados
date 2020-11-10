@@ -1,38 +1,52 @@
 <?php
 
-class Usuarios extends Principal {
+class Comentarios extends Principal {
     function __construct(){
         parent::__construct();
-        $this->area = 'usuarios';
-        $this->tipo = array('0'=>'Usuário','1'=>'Cliente','2'=>'Funcionário');
+        $this->area = 'comentarios';
     }
     
-    public function formulario(){
-        $id = $this->urlGetVal('id');
-        $obj = array();
-        if((int)$id > 0){
-            $obj = $this->getRegistro($id,$this->t_usuarios);            
-        }
-        echo "<h2 class='form_title'>Cadastro de Usuários</h2>";
-        $form = "<form id='f_usuarios' name='f_usuarios' action='{$this->url_system}{$this->area}_xp.php' method='post'>";
-        $form .= "<input type='hidden' id='acao' name='acao' value='salvar' />";
-        $_SESSION['atualizar']['usuario_id'] = $obj['id'];
-        $form .= "<p class='form_raw'><label for='nome'><span>Nome: </span><input type='text' id='nome' name='nome' value='{$obj['nome']}' /></label></p>";
-        $form .= "<p class='form_raw'><label for='email'><span>Email: </span><input type='text' id='email' name='email' value='{$obj['email']}' /></label></p>";
-        $form .= "<p class='form_raw'><label for='senha'><span>Senha: </span><input type='password' id='senha' name='senha' /></label></p>";
-        //tipo usuario
-        if($_SESSION['usuario']['tipo'] == 2){  
-            $form .= "<p class='form_raw'><label for='tipo'>Tipo: <select name='tipo' id='tipo'>";
-                foreach($this->tipo as $key => $tipo){
-                    $s = ($obj['tipo'] == $key) ? 'selected' : '';
-                    $form .= "<option value='{$key}' {$s} >{$tipo}</option>";
+    public function formularioAjax($chamados_id){
+        $js = "<script type='text/javascript'>
+            $(document).ready(function(){
+                $('#adicionarComentario').click(function(){adicionarComentario();});              
+            });
+            function adicionarComentario(){
+                var comentario = $('#comentario').val();
+                var chamados_id = $('#chamados_id').val();
+                if(comentario == ''){
+                    alert('Preencha o campo!');
+                    $('#comentario').focus();
+                    return false;
                 }
-            $form .= "</select></label></p>";
-        }
-        $form .= "<input type='submit' value='Salvar' />";
+                
+                $.post('{$this->url_system}ajax.php',{'f':'adicionarComentario','comentario':comentario,'chamados_id':chamados_id},function(returned_data){
+                    if(returned_data == 1)
+                        window.location.href = window.location.href;
+                    else
+                        alert('Falha ao salvar comentário!');
+                });
+            }
+            </script>";
+        $form = "<h2 class='form_subtitle'>Adicionar comentário</h2>";
+        $form .= "<form id='f_comentarios' name='f_comentarios' action='{$this->url_system}ajax.php' method='post'>";
+        $form .= "<input type='hidden' id='acao' name='acao' value='salvar' />";
+        $form .= "<input type='hidden' id='chamados_id' name='chamados_id' value='{$chamados_id}' />";
+        $form .= "<p class='form_raw_ajax'><label for='comentario'><span>Comentário: </span><textarea id='comentario' name='comentario' ></textarea></label></p>";
+        $form .= "<input type='button' id='adicionarComentario' value='Adicionar' />";
         $form .= "</form>";
         
         echo $form;
+        echo $js;
+    }
+    
+    function adicionarComentario($comentario, $chamados_id){
+        $record['comentario'] = $comentario;
+        $record['chamados_id'] = $chamados_id;
+        $record['usuarios_id'] = $_SESSION['usuario']['id'];
+        if($this->inserir($record, $this->t_comentarios)){
+            echo 1;
+        }
     }
     
     public function lista(){
