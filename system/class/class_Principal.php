@@ -1,6 +1,7 @@
 <?php
 
 class Principal {
+    
     function __construct(){
         $this->url = "http://127.0.0.1/sigchamados/";
         $this->url_system = $this->url . "system/";
@@ -119,8 +120,23 @@ class Principal {
         $html .= "<p>Neste sistema você poderá:";
         $html .= "<ol><li>Iserir novos chamados</li>";
         $html .= "<li>Consultar a situação dos seus chamados</li>";
+        $html .= "<li>Verificar a solução encontrada para o seu chamado</li>";
         $html .= "<li>Adicionar comentários aos seus chamados</li></ol></p>";
         return $html;
+    }
+    
+    function setMsg($msg){
+        $_SESSION['msg'] = $msg;
+    }
+    function getMsg(){
+        $msg = $_SESSION['msg'];
+        $_SESSION['msg'] = '';
+        return "<div class='msg'>{$msg}</div>";
+    }
+    
+    function acessoNegado(){
+        $this->setMsg('Acesso negado! Aguarde a liberação de seus acessos por um funcionário.');
+        header("Location: {$this->url}");
     }
 }
 

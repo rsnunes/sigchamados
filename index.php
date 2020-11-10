@@ -39,6 +39,8 @@
             $get_area = $us->getArea();
             $file_area = __DIR__ . DS . "system" . DS . $get_area . ".php";
             
+            echo $us->getMsg();
+            
             if(!$us->usuarioLogado()){
                 echo $us->getAbout();
                 ?>
@@ -66,7 +68,7 @@
                 $ch->lista(1);
             }
             else{
-                echo $us->getAbout();
+                echo $us->getAbout();                
             }
         ?>            
         </div>

@@ -8,7 +8,8 @@ class Usuarios extends Principal {
     }
     
     public function formulario(){
-        $id = $this->urlGetVal('id');
+        
+        $id = ($_SESSION['usuario']['tipo'] != '1') ? $_SESSION['usuario']['id'] : $this->urlGetVal('id');
         $obj = array();
         if((int)$id > 0){
             $obj = $this->getRegistro($id,$this->t_usuarios);            
@@ -36,17 +37,27 @@ class Usuarios extends Principal {
     }
     
     public function lista(){
-        echo "<h2 class='list_title'>Lista de Usuários</h2>";
-        $sql = "SELECT id, nome, email, tipo FROM {$this->t_usuarios} WHERE 1=1 ORDER BY id DESC";
+        if($_SESSION['usuario']['tipo'] != '2'){
+           $where = " id = :id";
+           $params[':id'] = $_SESSION['usuario']['id'];
+           $title = "Meu cadastro";
+        }else{
+            $bt_del = "<th>Del</th>";
+            $where = ' 1=1 ';
+            $params = array();
+            $title = "Lista de Usuários";
+        }
+        echo "<h2 class='list_title'>{$title}</h2>";
+        $sql = "SELECT id, nome, email, tipo FROM {$this->t_usuarios} WHERE {$where} ORDER BY id DESC";
         
-        $obj = $this->listar($sql);
+        $obj = $this->listar($sql,$params);
         
         if(count($obj) > 0){            
             $html = "<table name='lista_regs' border='0' cellpadding='2' cellspacing='2'>";
-            $html .= "<tr><th>Alt</th><th>Del</th><th>Nome</th><th>Email</th><th>Tipo</th></tr>";
+            $html .= "<tr><th>Alt</th>{$bt_del}<th>Nome</th><th>Email</th><th>Tipo</th></tr>";
             foreach($obj as $row){
                 $html .= "<tr><td>{$this->bt_alt($this->area,$row['id'])}</td>";
-                $html .= "<td>{$this->bt_del($row['id'], $this->t_usuarios)}</td>";
+                $html .= ($_SESSION['usuario']['tipo'] == 2) ? "<td>{$this->bt_del($row['id'], $this->t_usuarios)}</td>" : '';
                 $html .= "<td>{$row['nome']}</td>";
                 $html .= "<td>{$row['email']}</td>";
                 $html .= "<td>{$this->tipo[$row['tipo']]}</td>";
@@ -98,5 +109,7 @@ class Usuarios extends Principal {
     static function logout(){
         session_destroy();
     }
+    
+  
 }
 ?>

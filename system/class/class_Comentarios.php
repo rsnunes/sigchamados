@@ -78,43 +78,5 @@ class Comentarios extends Principal {
         echo $html;
     }
     
-    function logar($email, $senha){
-        $sql = "SELECT id, nome, email, tipo FROM {$this->t_usuarios} WHERE email = :email and senha = :senha limit 1";
-        $params = array(':email'=>$email, ':senha'=>md5($senha));
-        $usuario = $this->listar($sql, $params);
-        
-        if(count($usuario) == 1){ 
-            $_SESSION['usuario']['logado'] = 1;
-            $_SESSION['usuario']['id'] = $usuario[0]['id'];
-            $_SESSION['usuario']['nome'] = $usuario[0]['nome'];
-            $_SESSION['usuario']['email'] = $usuario[0]['email'];
-            $_SESSION['usuario']['tipo'] = $usuario[0]['tipo'];
-            header("Location: {$this->url}");
-        }
-        else{
-            return false;
-        }
-    }
-    
-    function cadastrarUsuario($nome, $email, $senha){
-        $record['nome'] = $nome;
-        $record['email'] = $email;
-        $record['senha'] = md5($senha);
-        $record['tipo'] = 0;
-        $this->inserir($record, $this->t_usuarios);
-        $_SESSION['usuario']['logado'] = 1;
-        $_SESSION['usuario']['id'] = $_SESSION['last_id'];
-        $_SESSION['usuario']['nome'] = $record['nome'];
-        $_SESSION['usuario']['email'] = $record['email'];
-        $_SESSION['usuario']['tipo'] = 0;
-    }
-            
-    function usuarioLogado(){
-        return $_SESSION['usuario']['logado'] == 1;
-    }
-    
-    static function logout(){
-        session_destroy();
-    }
 }
 ?>
