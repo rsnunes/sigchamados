@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `chamados` (
   `dtaalt` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `usuarios_id` (`usuarios_id`),
-  CONSTRAINT `FK_chamados_usuarios` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+  CONSTRAINT `FK_chamados_usuarios` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela sigchamados.chamados: ~0 rows (aproximadamente)
@@ -60,10 +60,14 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `senha` varchar(100) NOT NULL,
   `tipo` char(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela sigchamados.usuarios: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela sigchamados.usuarios: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`) VALUES
+	(1, 'FuncionÃ¡rio', 'funcionario@teste.com', 'd41d8cd98f00b204e9800998ecf8427e', '2'),
+	(2, 'Cliente', 'cliente@teste.com', 'd41d8cd98f00b204e9800998ecf8427e', '1'),
+	(3, 'UsuÃ¡rio', 'usuario@teste.com', 'd41d8cd98f00b204e9800998ecf8427e', '0');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

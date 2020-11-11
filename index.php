@@ -73,7 +73,7 @@
             }
             else{
                 echo $us->getAbout();   
-                echo '<p>A liberação de seus acessos será feita por um funcionário.</p>';
+                echo "<p class='c'>A liberação de seus acessos será feita por um funcionário.</p>";
             }
         ?>            
         </div>
