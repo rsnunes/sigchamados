@@ -45,15 +45,15 @@
             if(!usuarioLogado()){
                 echo $us->getAbout();
                 ?>
-                <h2>Faça seu cadastro para adicionar novos chamados</h2>
+                <h2 class="form_title">Faça seu cadastro para adicionar novos chamados</h2>
 
                 <form id="form_login" action="acesso.php" method="post" >
                     <input type="hidden" name="cadastrar" id="cadastrar" value="1" />
-                    <p><label for="nome">Nome: <input type="text" name="nome" id="nome" placeholder="Digite seu nome" required="required" /></label></p>
-                    <p><label for="email">Email: <input type="text" name="email" id="email" placeholder="Digite seu email" required="required" /></label></p>
-                    <p><label for="senha">Senha: <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required="required" /></label></p>
+                    <p><label for="nome"><span>Nome: </span><input type="text" name="nome" id="nome" placeholder="Digite seu nome" required="required" class="input_text" /></label></p>
+                    <p><label for="email"><span>Email: </span><input type="text" name="email" id="email" placeholder="Digite seu email" required="required" class="input_text" /></label></p>
+                    <p><label for="senha"><span>Senha: </span><input type="password" name="senha" id="senha" placeholder="Digite sua senha" required="required" class="input_text" /></label></p>
 
-                    <p><input type="submit" name="entrar" value="Entrar" /></p>
+                    <p><input type="submit" name="entrar" value="Entrar" class="input_button" /></p>
                 </form>
                 <?php  
                 echo "<p>Já possui uma conta? <a href='{$us->url}acesso.php' >Acessar</a></p>";
@@ -63,7 +63,7 @@
             }
             elseif(usuarioLogado() && $us->getTipo() == 1){
                 echo $us->getAbout();
-                echo "<a href='{$url}?area=chamados' title='Meus chamados'>Meus chamados</a>";
+                echo "<a href='{$url}?area=chamados' title='Meus chamados' class='bt_meus_chamados'>Meus chamados</a>";
             }
             elseif(usuarioLogado() && $us->getTipo() == 2){
                 $ch = new Chamados();

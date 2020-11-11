@@ -30,6 +30,7 @@ header .perfil .sair{
 }
 header .perfil .login{
     color: #16d809;
+    height: 40px;
 }
 header .titulo{
     text-align: center;
@@ -46,7 +47,7 @@ a{  color: #8fd6ff;}
 .form_title .box_acao{
     margin: 0 20px 0 10px;
 }
-.form_title .bt_acao{
+.form_title .bt_acao, .bt_meus_chamados{
     background: #6B6E6E;
     font-weight: bold;
     color: #39c700;
@@ -60,6 +61,8 @@ a{  color: #8fd6ff;}
     -webkit-text-shadow: 1px 1px 0 #000;
     text-decoration: none;
 }
+.bt_meus_chamados{margin: 20px}
+.form_title .bt_acao:hover, .bt_meus_chamados:hover{color: #55e01d}
 .form_title .bt_acao:hover{  text-decoration: underline;}
 .form_subtitle{margin: 20px 10px 15px 10px}
 
@@ -71,6 +74,18 @@ form .form_row span, form .form_row_ajax span{
     display: inline-block;
     width: 170px;
     vertical-align: top;
+}
+#form_login span{
+    font-size: 18px;
+    font-weight: bold;
+    color: #68c700;
+    display: inline-block;
+    width: 140px;
+    vertical-align: top;
+}
+#form_login p label {
+    padding: 3px 0 3px 10px;
+    display: block;
 }
 form .form_row, form .form_row_ajax{    
     display: block;

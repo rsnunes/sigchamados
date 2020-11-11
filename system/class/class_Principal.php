@@ -118,12 +118,12 @@ class Principal {
         return "<h1>SIG Chamados</h1><h3>Sistema gerenciador de chamados</h3>";        
     }
     function getAbout(){
-        $html = "<p>Neste sistema você poderá:";
+        $html = "<p>Neste sistema você poderá:</p>";
         $html .= "<ol><li>Inserir novos chamados</li>";
         $html .= "<li>Consultar a situação dos seus chamados</li>";
         $html .= "<li>Verificar a solução encontrada para o seu chamado</li>";
         $html .= "<li>Adicionar comentários aos seus chamados</li>";
-        $html .= "<li>Atualizar seu <a href='{$this->url}?area=usuarios&acao=formulario&id={$_SESSION['usuario']['id']}'>perfil</a></li></ol></p>";
+        $html .= (usuarioLogado()) ? "<li>Atualizar seu <a href='{$this->url}?area=usuarios&acao=formulario&id={$_SESSION['usuario']['id']}'>perfil</a></li></ol>" : '<p><br></p>';
         return $html;
     }
     

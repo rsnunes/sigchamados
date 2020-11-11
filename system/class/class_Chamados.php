@@ -104,8 +104,8 @@ class Chamados extends Principal {
                 $html .= "<tr><td class='c'>{$this->bt_alt($this->area,$row['id'],'Ver')}</td>";
                 $html .= "<td>{$this->status[$row['status']]}</td>";
                 $html .= "<td>".substr($row['descricao'],0,150)."</td>";
-                $html .= "<td>{$row['dtains']}</td>";
-                $html .= "<td>{$row['dtaalt']}</td>";
+                $html .= "<td>".fDataHora($row['dtains'])."</td>";
+                $html .= "<td>".fDataHora($row['dtaalt'])."</td>";
                 $html .= "<td>{$row['nome']}</td>";
                 $html .= "</tr>";
             }

@@ -67,7 +67,7 @@ class Comentarios extends Principal {
             foreach($obj as $row){                
                 $html .= "<td>".substr($row['comentario'],0,200)."</td>";
                 $html .= "<td>{$row['nome']}</td>";
-                $html .= "<td>{$row['dtains']}</td>";
+                $html .= "<td>".fDataHora($row['dtains'])."</td>";
                 $html .= "</tr>";
             }
             $html .= "</table>";
