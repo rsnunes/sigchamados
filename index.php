@@ -26,7 +26,7 @@
         </header>
         <?php if(usuarioLogado() && $us->getTipo() == 2){ 
             echo "<nav>";
-                echo "<ul>";                
+                echo "<ul class='menu'>";                
                     echo "<li><a href='{$url}' title='Página inicial'>Página inicial</a></li>";
                     echo "<li><a href='{$url}?area=chamados' title='Chamados'>Chamados</a></li>";
                     echo "<li><a href='{$url}?area=usuarios' title='Usuários'>Usuários</a></li>";
@@ -34,7 +34,7 @@
             echo "</nav>";
         }
         ?>
-        <div id="conteudo">
+        <div class="conteudo">
         <?php
         
             $get_area = $us->getArea();
@@ -45,25 +45,27 @@
             if(!usuarioLogado()){
                 echo $us->getAbout();
                 ?>
-                <h2 class="form_title">Faça seu cadastro para adicionar novos chamados</h2>
+                <div class="criar_conta">
+                    <h3 class="form_title">Faça seu cadastro para adicionar novos chamados</h3>
 
-                <form id="form_login" action="acesso.php" method="post" >
-                    <input type="hidden" name="cadastrar" id="cadastrar" value="1" />
-                    <p><label for="nome"><span>Nome: </span><input type="text" name="nome" id="nome" placeholder="Digite seu nome" required="required" class="input_text" /></label></p>
-                    <p><label for="email"><span>Email: </span><input type="text" name="email" id="email" placeholder="Digite seu email" required="required" class="input_text" /></label></p>
-                    <p><label for="senha"><span>Senha: </span><input type="password" name="senha" id="senha" placeholder="Digite sua senha" required="required" class="input_text" /></label></p>
+                    <form id="form_conta" action="acesso.php" method="post" >
+                        <input type="hidden" name="cadastrar" id="cadastrar" value="1" />
+                        <p><label for="nome"><span>Nome: </span><input type="text" name="nome" id="nome" placeholder="Digite seu nome" required="required" class="input_text" /></label></p>
+                        <p><label for="email"><span>Email: </span><input type="text" name="email" id="email" placeholder="Digite seu email" required="required" class="input_text" /></label></p>
+                        <p><label for="senha"><span>Senha: </span><input type="password" name="senha" id="senha" placeholder="Digite sua senha" required="required" class="input_text" /></label></p>
 
-                    <p><input type="submit" name="entrar" value="Entrar" class="input_button" /></p>
-                </form>
-                <?php  
-                echo "<p>Já possui uma conta? <a href='{$us->url}acesso.php' >Acessar</a></p>";
+                        <p><input type="submit" name="entrar" value="Entrar" class="input_button" /></p>
+                    </form>
+                    <?php  
+                    echo "<p class='text'>Já possui uma conta? <a href='{$us->url}acesso.php' >Acessar</a></p>";
+                echo "</div>";
             }
             elseif(file_exists($file_area)){
                 include($file_area);
             }
             elseif(usuarioLogado() && $us->getTipo() == 1){
                 echo $us->getAbout();
-                echo "<a href='{$url}?area=chamados' title='Meus chamados' class='bt_meus_chamados'>Meus chamados</a>";
+                echo "<p class='c'><a href='{$url}?area=chamados' title='Meus chamados' class='bt_meus_chamados'>Meus chamados</a></p>";
             }
             elseif(usuarioLogado() && $us->getTipo() == 2){
                 $ch = new Chamados();

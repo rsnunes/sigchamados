@@ -31,7 +31,7 @@ class Usuarios extends Principal {
         $form .= "<p class='form_row'><label for='senha'><span>Senha: </span><input type='password' id='senha' name='senha' class='input_text' /></label></p>";
         
         if($this->getTipo() == 2){  
-            $form .= "<p class='form_row'><label for='tipo'>Tipo: <select name='tipo' id='tipo'>";
+            $form .= "<p class='form_row'><label for='tipo'><span>Tipo: </span><select name='tipo' id='tipo' class='input_text'>";
                 foreach($this->tipo as $key => $tipo){
                     $s = ($obj['tipo'] == $key) ? 'selected' : '';
                     $form .= "<option value='{$key}' {$s} >{$tipo}</option>";

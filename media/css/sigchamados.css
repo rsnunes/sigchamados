@@ -22,8 +22,7 @@ header .perfil{
 }
 header .perfil span a{
     color: #a0dcff;
-    display: inline-block;
-    padding: 0 3px 3px 3px;
+    padding: 3px;
 }
 header .perfil .sair{
     color: #ff5717;
@@ -34,12 +33,40 @@ header .perfil .login{
 }
 header .titulo{
     text-align: center;
+    padding: 0 200px;
 }
 a{  color: #8fd6ff;}
-#conteudo{
+
+.menu{
+    width: 400px;
+    margin: 20px auto;
+}
+.menu li{ list-style: none; display: inline-block}
+.menu li a{ 
+    background: #6b6e6e;
+    padding: 4px 7px;
+    color: #39c700;
+    text-shadow: 1px 1px 1px #000;
+    -moz-text-shadow: 1px 1px 1px #000;
+    -webkit-text-shadow: 1px 1px 1px #000;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 18px;
+    display: block;
+    margin: 0 5px;
+    text-decoration: none;
+}
+.menu li a:hover{text-decoration: underline}
+
+.conteudo{
     padding: 0 20px;
     color: #dcdcdc;
 }
+.conteudo .about{
+    width: 435px;
+    margin: 10px auto 30px auto;
+}
+.conteudo .about ol li{padding: 2px}
 
 .form_title{
     margin-bottom: 15px;
@@ -61,7 +88,7 @@ a{  color: #8fd6ff;}
     -webkit-text-shadow: 1px 1px 0 #000;
     text-decoration: none;
 }
-.bt_meus_chamados{margin: 20px}
+p .bt_meus_chamados{margin: 20px; font-size: 20px}
 .form_title .bt_acao:hover, .bt_meus_chamados:hover{color: #55e01d}
 .form_title .bt_acao:hover{  text-decoration: underline;}
 .form_subtitle{margin: 20px 10px 15px 10px}
@@ -75,18 +102,33 @@ form .form_row span, form .form_row_ajax span{
     width: 170px;
     vertical-align: top;
 }
-#form_login span{
+
+.conteudo .login, .conteudo .criar_conta{
+    width: 400px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+    background: #374146;
+    border-radius: 6px;
+    border-bottom: 1px solid #465861;
+    border-right: 1px solid #435c69;
+    box-shadow: 1px 1px 4px #1b1d1f;
+    -moz-box-shadow: 1px 1px 4px #1b1d1f;
+    -webkit-box-shadow: 1px 1px 4px #1b1d1f;
+}
+#form_login span, #form_conta span{
     font-size: 18px;
     font-weight: bold;
     color: #68c700;
     display: inline-block;
-    width: 140px;
-    vertical-align: top;
+    width: 70px;
+    vertical-align: middle;
 }
-#form_login p label {
+#form_login p label, #form_conta p label {
     padding: 3px 0 3px 10px;
     display: block;
 }
+.conteudo .login p.text, .conteudo .criar_conta p.text{ margin-top: 20px}
 form .form_row, form .form_row_ajax{    
     display: block;
     padding: 5px 10px;
@@ -139,9 +181,10 @@ form .input_text:active, form .input_text:focus, form .input_button:active, form
     outline: none;
 }
 
+
 .table_regs{
     width: 95%;
-    margin: 0 auto;
+    margin: 0 auto 30px auto;
     min-width: 500px;
 }
 .table_regs th{
@@ -166,6 +209,9 @@ th.del, th.alt, th.ver{ width: 40px}
     font-size: 15px;
 }
 
+.status_0{ color: #c10505}
+.status_1{ color: #16d809}
+.status_2{ color: #287cfb}
 
 
 
@@ -175,6 +221,7 @@ th.del, th.alt, th.ver{ width: 40px}
 .nenhum_reg{
     font-size: 16px;
     display: inline-block;
+    margin: 10px;
     clear: both;
     color: #a0a067;
     font-weight: bold;

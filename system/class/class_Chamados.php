@@ -89,7 +89,8 @@ class Chamados extends Principal {
             $where = " 1=1 ";
             $params = array();
         }
-        $bts = $this->bt_acao().$this->bt_acao('Novo', 1);
+        $bts = ($inicial == 1) ? '' : $this->bt_acao();
+        $bts .= $this->bt_acao('Novo', 1);
         $html = "<div class='form_title'><div class='box_acao dib'>{$bts}</div><h2 class=' dib'>Lista de Chamados {$title}</h2></div>";
     
         $sql = "SELECT a.id, a.descricao, a.status, a.dtains, a.dtaalt, b.nome FROM {$this->t_chamados} a, {$this->t_usuarios} b WHERE {$where} and a.usuarios_id = b.id ORDER BY a.id DESC";
@@ -102,7 +103,7 @@ class Chamados extends Principal {
             $html .= "<tr><th class='ver'>Ver</th><th>Status</th><th>Descrição</th><th class='dta'>Criado em</th><th class='dta'>Modificado em</th><th>Criado por</th></tr>";
             foreach($obj as $row){
                 $html .= "<tr><td class='c'>{$this->bt_alt($this->area,$row['id'],'Ver')}</td>";
-                $html .= "<td>{$this->status[$row['status']]}</td>";
+                $html .= "<td class='status_{$row['status']}'>{$this->status[$row['status']]}</td>";
                 $html .= "<td>".substr($row['descricao'],0,150)."</td>";
                 $html .= "<td>".fDataHora($row['dtains'])."</td>";
                 $html .= "<td>".fDataHora($row['dtaalt'])."</td>";
