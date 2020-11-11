@@ -1,0 +1,175 @@
+body, header, nav, div, li, a, h1,h2,h3, p, td, label{ 
+    margin: 0; padding: 0;   
+}
+body{
+    font-family: arial, sans-serif;
+    background: #313a3e;
+    min-width: 700px;
+}
+.db{ display: block}
+.dib{ display: inline-block}
+.c{text-align: center}
+
+header{
+    padding: 20px;
+}
+header .perfil{
+    color: #fff;
+    font-size: 20px;
+    float: right;
+    text-align: right;
+    width: 200px;
+}
+header .perfil span a{
+    color: #a0dcff;
+    display: inline-block;
+    padding: 0 3px 3px 3px;
+}
+header .perfil .sair{
+    color: #ff5717;
+}
+header .perfil .login{
+    color: #16d809;
+}
+header .titulo{
+    text-align: center;
+}
+a{  color: #8fd6ff;}
+#conteudo{
+    padding: 0 20px;
+    color: #dcdcdc;
+}
+
+.form_title{
+    margin-bottom: 15px;
+}
+.form_title .box_acao{
+    margin: 0 20px 0 10px;
+}
+.form_title .bt_acao{
+    background: #6B6E6E;
+    font-weight: bold;
+    color: #39c700;
+    padding: 5px 8px;
+    border-radius: 3px;
+    margin-right: 5px;
+    font-size: 16px;
+    line-height: 27px;
+    text-shadow: 1px 1px 0 #000;
+    -moz-text-shadow: 1px 1px 0 #000;
+    -webkit-text-shadow: 1px 1px 0 #000;
+    text-decoration: none;
+}
+.form_title .bt_acao:hover{  text-decoration: underline;}
+.form_subtitle{margin: 20px 10px 15px 10px}
+
+
+form .form_row span, form .form_row_ajax span{
+    font-size: 18px;
+    font-weight: bold;
+    color: #68c700;
+    display: inline-block;
+    width: 170px;
+    vertical-align: top;
+}
+form .form_row, form .form_row_ajax{    
+    display: block;
+    padding: 5px 10px;
+    margin: 5px;
+    line-height: 15px;
+    background: #394144;
+    font-size: 16px;
+    border-radius: 2px;
+    border-bottom: 1px solid #4a5558;
+    border-right: 1px solid #596367;
+}
+form .input_text{
+    padding: 4px 15px;
+    font-size: 16px;
+    background: #fff;
+    color: #212727;
+    border: 1px solid #555;
+    border-radius: 6px;
+    border: 1px solid #2b5a02;
+    transition: all ease-in-out 0.4s;
+    -moz-transition: all ease-in-out 0.4s;
+    -webkit-transition: all ease-in-out 0.4s;
+}
+form .input_text:focus{ border: 1px solid #68c700}
+form .input_button{
+    margin: 10px;
+    padding: 4px 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;    
+    background: #fff;
+    color: #212727;
+    border: 1px solid #555;
+    border-radius: 6px;
+    box-shadow: 0px 10px 10px #ccc inset, 0 0px 10px #000 inset;
+    -moz-box-shadow: 0px 10px 10px #ccc inset, 0 0px 10px #000 inset;
+    -webkit-box-shadow: 0px 10px 10px #ccc inset, 0 0px 10px #000 inset;
+    border-top: 1px solid #BBB;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.55);
+    border-right: 1px solid #7D7D7D;
+    border-left: 1px solid #A7A7A7;
+    transition: all ease-in-out 0.4s;
+    -moz-transition: all ease-in-out 0.4s;
+    -webkit-transition: all ease-in-out 0.4s;
+}
+form .input_button:hover{ color: #0b56c7;}
+form .input_text:active, form .input_text:focus, form .input_button:active, form .input_button:focus,
+    .a_bt_alt input:active, .a_bt_alt input:focus, .bt_del:active, .bt_del:focus{
+    outline: none;
+}
+
+.table_regs{
+    width: 95%;
+    margin: 0 auto;
+    min-width: 500px;
+}
+.table_regs th{
+    background: #343f44;
+    color: #fff;
+    font-size: 15px;
+    padding: 5px;
+}
+th.del, th.alt, th.ver{ width: 40px}
+.bt_del, .a_bt_alt input{
+    height: 40px;
+    width: 40px;
+    border: 0;
+    cursor: pointer;
+}
+.bt_del{ background: url('../img/icons.png') no-repeat -238px -61px;}
+.a_bt_alt input{ background: url('../img/icons.png') no-repeat -238px -102px;}
+
+.table_regs td{
+    background: #4e636d;
+    padding: 5px;
+    font-size: 15px;
+}
+
+
+
+
+
+
+
+.nenhum_reg{
+    font-size: 16px;
+    display: inline-block;
+    clear: both;
+    color: #a0a067;
+    font-weight: bold;
+    background: rgba(61, 77, 84, 0.7);
+    border-top: 1px solid #4a8407;
+    border-right: 1px solid #203804;
+    border-bottom: 1px solid #23380a;
+    border-left: 1px solid #4a8407;
+    padding: 3px 5px;
+    box-shadow: 1px 1px 1px rgb(71, 115, 20);
+    -moz-box-shadow: 1px 1px 1px rgb(71, 115, 20);
+    -webkit-box-shadow: 1px 1px 1px rgb(71, 115, 20);
+}

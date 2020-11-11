@@ -5,7 +5,7 @@
 <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
-        <!-- <link rel="stylesheet" type="text/css" href="" /> -->
+        <link rel="stylesheet" type="text/css" href="<?=$us->url_css?>sigchamados.css" />
         <script type="text/javascript" src="<?=$us->url_js?>jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="<?=$us->url_js?>funcoes.js"></script>
         <title>
@@ -16,12 +16,13 @@
         <header >
             <div class="perfil"><?php 
                 if(usuarioLogado()){
-                    echo "<span >{$us->tipo[$us->getTipo()]}: <a href='{$us->url}?area=usuarios&acao=formulario&id={$_SESSION['usuario']['id']}' >{$_SESSION['usuario']['nome']}</a></span>";
-                    echo "<a href='{$us->url}logout.php' title='Sair'>Sair</a>";
+                    echo "<span >{$us->tipo[$us->getTipo()]}: <a href='{$us->url}?area=usuarios&acao=formulario&id={$_SESSION['usuario']['id']}' >{$_SESSION['usuario']['nome']}</a>";
+                    echo "<a href='{$us->url}logout.php' title='Sair' class='sair db'>Sair</a></span>";
                 }else{
-                    echo "<a href='{$us->url}acesso.php' title='Login'>Login</a>";
+                    echo "<a href='{$us->url}acesso.php' title='Login' class='login db'>Login</a>";
                 }
             ?></div>
+            <div class="titulo"><?php echo $us->getTitle(); ?></div>
         </header>
         <?php if(usuarioLogado() && $us->getTipo() == 2){ 
             echo "<nav>";
@@ -33,12 +34,12 @@
             echo "</nav>";
         }
         ?>
-        <div id="content">
+        <div id="conteudo">
         <?php
         
             $get_area = $us->getArea();
             $file_area = __DIR__ . DS . "system" . DS . $get_area . ".php";
-            echo $us->getTitle();
+          
             echo $us->getMsg();
             
             if(!usuarioLogado()){

@@ -34,12 +34,12 @@ class Comentarios extends Principal {
                 });
             }
             </script>";
-        $form = "<h2 class='form_subtitle'>Adicionar comentário</h2>";
+        $form = "<h3 class='form_subtitle'>Adicionar comentários</h3>";
         $form .= "<form id='f_comentarios' name='f_comentarios' action='{$this->url_system}ajax.php' method='post'>";
         $form .= "<input type='hidden' id='acao' name='acao' value='salvar' />";
         $form .= "<input type='hidden' id='chamados_id' name='chamados_id' value='{$chamados_id}' />";
-        $form .= "<p class='form_raw_ajax'><label for='comentario'><span>Comentário: </span><textarea id='comentario' name='comentario' ></textarea></label></p>";
-        $form .= "<input type='button' id='adicionarComentario' value='Adicionar' />";
+        $form .= "<p class='form_row_ajax'><label for='comentario'><span>Comentário: </span><textarea id='comentario' name='comentario' class='input_text' cols='60' rows='3'></textarea></label></p>";
+        $form .= "<input type='button' id='adicionarComentario' value='Adicionar' title='Adicionar comentário' class='input_button' />";
         $form .= "</form>";        
         
         echo $form;
@@ -56,14 +56,14 @@ class Comentarios extends Principal {
     }
     
     public function listaAjax($chamados_id){
-        echo "<h2 class='list_title'>Comentários deste chamado</h2>";
+        echo "<h3 class='form_subtitle'>Comentários deste chamado</h3>";
         $sql = "SELECT a.comentario, a.dtains, b.nome FROM {$this->t_comentarios} a, {$this->t_usuarios} b WHERE a.chamados_id = :chamados_id and a.usuarios_id = b.id ORDER BY a.id DESC";
         $params[':chamados_id'] = $chamados_id;
         $obj = $this->listar($sql, $params);
         
         if(count($obj) > 0){            
-            $html = "<table name='lista_ajax' border='0' cellpadding='2' cellspacing='2'>";
-            $html .= "<tr><th>Comentário</th><th>Adicionado por</th><th>Data</th></tr>";
+            $html = "<table name='lista_ajax' border='0' cellpadding='2' cellspacing='2' class='table_regs'>";
+            $html .= "<tr><th>Comentário</th><th>Adicionado por</th><th class='dta'>Data</th></tr>";
             foreach($obj as $row){                
                 $html .= "<td>".substr($row['comentario'],0,200)."</td>";
                 $html .= "<td>{$row['nome']}</td>";
