@@ -65,9 +65,9 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 -- Copiando dados para a tabela sigchamados.usuarios: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`) VALUES
-	(1, 'FuncionÃ¡rio', 'funcionario@teste.com', 'd41d8cd98f00b204e9800998ecf8427e', '2'),
-	(2, 'Cliente', 'cliente@teste.com', 'd41d8cd98f00b204e9800998ecf8427e', '1'),
-	(3, 'UsuÃ¡rio', 'usuario@teste.com', 'd41d8cd98f00b204e9800998ecf8427e', '0');
+	(1, 'FuncionÃ¡rio', 'funcionario@teste.com', 'e10adc3949ba59abbe56e057f20f883e', '2'),
+	(2, 'Cliente', 'cliente@teste.com', 'e10adc3949ba59abbe56e057f20f883e', '1'),
+	(3, 'UsuÃ¡rio', 'usuario@teste.com', 'e10adc3949ba59abbe56e057f20f883e', '0');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
